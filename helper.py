@@ -10,6 +10,8 @@ def load_dataset_light():
 	sampled_indices = np.concatenate([on_indices, sampled_off_indices])
 	np.random.shuffle(sampled_indices)
 	df_sampled = df.loc[sampled_indices]
+	feat_names = [c for c in cols if c not in ["state", "mean_onoff_state"]]
+	feats = df_sampled[feat_names]
 	label = df_sampled["state"]
 	feats_train, feats_test, label_train, label_test = train_test_split(feats, label, test_size=0.2, shuffle=False)
 	return feats_train, feats_test, label_train, label_test
